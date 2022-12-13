@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdash/components/home/home_card.dart';
 import 'package:flutterdash/components/home/line_chart.dart';
@@ -18,19 +19,22 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
           children: const <Widget>[
             HomeCard(icon:  Icons.sell, title: "Sales Total", number: 394675, footer: "This Are the total sales", color: Colors.amber),
             HomeCard(icon:  Icons.group, title: "Customers total ", number: 7890, footer: "This Are the total customers", color: Colors.blue),
             HomeCard(icon:  Icons.flight, title: "Tavels Total", number: 2229, footer: "This Are the total travels", color: Colors.brown),
             HomeCard(icon:  Icons.percent,title: "Profits Total(USD)", number: 78900, footer: "The monthly total Profits ", color: Colors.indigo),
-            // HomeCard(icon:  Icons.percent,title: "Profits Losess(USD)", number:900, footer: "The monthly total Losses ", color: Colors.deepPurple),
+            HomeCard(icon:  Icons.percent,title: "Profits Losess(USD)", number:900, footer: "The monthly total Losses ", color: Colors.deepPurple),
           ],
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        const SizedBox(height: 30,),
+        Wrap(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Column(children: const <Widget> [
                CustomLineChart(),
                CustomPieChart() 

@@ -19,7 +19,7 @@ class CustomPieChart extends StatelessWidget {
               PieChartSectionData(
                 value: 20,
                 color: Colors.blue,
-                showTitle: false,
+                // showTitle: false,
                 title: "Sales"
               ),
               PieChartSectionData(

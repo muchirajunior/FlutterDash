@@ -10,33 +10,36 @@ class HomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 10,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-          Row(
+    return SizedBox(
+      width: 250,
+      child: Card(
+        elevation: 10,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
             children: [
-              Card(
-                color: color,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Icon(icon,color: Colors.white,size: 40,),
+            Row(
+              children: [
+                Card(
+                  color: color,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Icon(icon,color: Colors.white,size: 40,),
+                  ),
                 ),
-              ),
-              const SizedBox( width: 20,),
-              Column(children: [
-                Text(title,style: const TextStyle(color: Colors.grey),),
-                Text(number.toString(),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
-              ],)
-            ],
-          ),
-          const SizedBox(height: 10,),
-          Divider(height: 4,thickness: 4,),
-          Text(footer)
-        ],),
-      )      
+                const SizedBox( width: 20,),
+                Column(children: [
+                  Text(title,style: const TextStyle(color: Colors.grey),),
+                  Text(number.toString(),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
+                ],)
+              ],
+            ),
+            const SizedBox(height: 10,),
+            const Divider(height: 2,thickness: 2,),
+            Text(footer)
+          ],),
+        )      
+      ),
     );
     
   }
