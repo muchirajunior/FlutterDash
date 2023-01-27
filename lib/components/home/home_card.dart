@@ -11,7 +11,7 @@ class HomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 250,
+      width: 280,
       child: Card(
         elevation: 10,
         child: Padding(

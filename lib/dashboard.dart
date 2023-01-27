@@ -49,14 +49,14 @@ class _DashBoardState extends State<DashBoard> {
               selectedIndex: selectedIndex,
               onDestinationSelected: _changeDestination,
               selectedLabelTextStyle: const TextStyle(color: Colors.black,fontSize: 16),
-              minWidth: 93,
+              minWidth: 140,
               useIndicator: true,
               labelType: NavigationRailLabelType.all,
               indicatorColor: Colors.grey,
 
               leading: SizedBox(width: 60, child: profileImage,),
 
-              destinations: const <NavigationRailDestination>[
+              destinations: const [
                 NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text("Home"),selectedIcon: Icon(Icons.home)  ),
                 NavigationRailDestination(icon: Icon(Icons.shopping_cart_outlined), label: Text("Sales"),selectedIcon: Icon(Icons.shopping_cart) ),
                 NavigationRailDestination(icon: Icon(Icons.list_outlined), label: Text("products") ),

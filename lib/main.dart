@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Dash',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.brown,
       ),
       home: const DashBoard()
