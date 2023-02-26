@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterdash/components/componets.dart';
 
 class HomeCard extends StatelessWidget {
   final IconData icon;
@@ -30,7 +31,8 @@ class HomeCard extends StatelessWidget {
                 const SizedBox( width: 20,),
                 Column(children: [
                   Text(title,style: const TextStyle(color: Colors.grey),),
-                  Text(number.toString(),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
+                  Text(number.toString(),style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                  customButton()
                 ],)
               ],
             ),

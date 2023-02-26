@@ -29,6 +29,8 @@ class _DashBoardState extends State<DashBoard> {
     return Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
+        backgroundColor: Colors.brown.shade800,
+        foregroundColor: Colors.white,
         leading: const Icon(Icons.menu),
         title: const Text("DashBoards With Flutter"),
         actions:  <Widget>[
@@ -39,7 +41,7 @@ class _DashBoardState extends State<DashBoard> {
         ],
       ),
 
-      body:  Container(
+      body:  SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Row(
