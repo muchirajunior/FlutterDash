@@ -49,11 +49,12 @@ class _DashBoardState extends State<DashBoard> {
               elevation: 10,
               selectedIndex: selectedIndex,
               onDestinationSelected: _changeDestination,
-              selectedLabelTextStyle: const TextStyle(fontSize: 16),
+              selectedLabelTextStyle: const TextStyle(color: Colors.grey, fontSize: 16),
               minWidth: 140,
               useIndicator: true,
               labelType: NavigationRailLabelType.all,
               leading: SizedBox(width: 60, child: profileImage,),
+              
 
               destinations: const [
                 NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text("Home"),selectedIcon: Icon(Icons.home)  ),
