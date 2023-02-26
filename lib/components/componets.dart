@@ -9,13 +9,13 @@ Widget profileImage=ClipRRect(
 
 Widget customButton()=>Padding(
           padding: const EdgeInsets.all(8.0),
-          child: OutlinedButton(
+          child: ElevatedButton(
             onPressed: (){},
             style:  ButtonStyle(
               // padding: const MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(15)),
               shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-              )
+              ),
             ),
             child:const Text("see more")),
         );

@@ -15,7 +15,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       width: 400,
       height: 200,
       child: Card(
-        color: Colors.brown,
+        // color: Colors.brown,
         child: LineChart(
           LineChartData(   
             // backgroundColor: Colors.deepPurple,         

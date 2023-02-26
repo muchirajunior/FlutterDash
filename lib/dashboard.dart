@@ -30,7 +30,8 @@ class _DashBoardState extends State<DashBoard> {
       appBar: AppBar(
         leading: const Icon(Icons.menu),
         title: const Text("DashBoards With Flutter"),
-        elevation: 10,
+        elevation: 1,
+        shadowColor: Colors.grey.shade400,
         actions:  <Widget>[
             const Center(child: Text("JOHN DOE "),),
             const SizedBox(width: 5,),
