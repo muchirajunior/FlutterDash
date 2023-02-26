@@ -13,10 +13,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Dash',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: ThemeData.light(
         useMaterial3: true,
-        primarySwatch: Colors.brown,
       ),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.dark,
       home: const DashBoard()
     );
   }

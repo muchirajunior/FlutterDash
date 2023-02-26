@@ -27,12 +27,10 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        backgroundColor: Colors.brown.shade800,
-        foregroundColor: Colors.white,
         leading: const Icon(Icons.menu),
         title: const Text("DashBoards With Flutter"),
+        elevation: 10,
         actions:  <Widget>[
             const Center(child: Text("JOHN DOE "),),
             const SizedBox(width: 5,),
@@ -50,12 +48,10 @@ class _DashBoardState extends State<DashBoard> {
               elevation: 10,
               selectedIndex: selectedIndex,
               onDestinationSelected: _changeDestination,
-              selectedLabelTextStyle: const TextStyle(color: Colors.black,fontSize: 16),
+              selectedLabelTextStyle: const TextStyle(fontSize: 16),
               minWidth: 140,
               useIndicator: true,
               labelType: NavigationRailLabelType.all,
-              indicatorColor: Colors.grey,
-
               leading: SizedBox(width: 60, child: profileImage,),
 
               destinations: const [

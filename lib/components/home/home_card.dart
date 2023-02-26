@@ -15,6 +15,7 @@ class HomeCard extends StatelessWidget {
       width: 280,
       child: Card(
         elevation: 10,
+        margin: const EdgeInsets.all(8),
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(

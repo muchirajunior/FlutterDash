@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterdash/components/home/home_card.dart';
 import 'package:flutterdash/components/home/line_chart.dart';
@@ -41,7 +40,7 @@ class _HomeState extends State<Home> {
             ],),
 
             Container(
-              margin: EdgeInsets.all(10),
+              margin:const EdgeInsets.all(10),
               child: Card(
                 child: DataTable(
                   columns: const <DataColumn>  [
