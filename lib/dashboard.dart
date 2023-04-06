@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterdash/components/componets.dart';
+import 'package:flutterdash/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/home/home.dart';
 
@@ -21,7 +23,31 @@ class _DashBoardState extends State<DashBoard> {
     const Text("Messages"),
     const Text("Settings"),
   ];
+  bool isDarkmode=true;
+
+  checkTheme()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if(preferences.getString("theme")=='light' || preferences.getString('theme')==null){
+      isDarkmode=false;
+      setState(() {});
+    }
+  }
   _changeDestination(int index)=>setState(()=>selectedIndex=index);
+
+  _chageTheme()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if(isDarkmode){
+      preferences.setString("theme", "light");
+    }else{ preferences.setString("theme", "dark");}
+    Navigator.popUntil(context, (route) => false);
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
+  }
+  
+  @override
+  initState(){
+    checkTheme();
+    super.initState();
+  }
 
 
   @override
@@ -33,6 +59,11 @@ class _DashBoardState extends State<DashBoard> {
         elevation: 1,
         shadowColor: Colors.grey.shade400,
         actions:  <Widget>[
+            IconButton(
+              onPressed: _chageTheme, 
+              icon: isDarkmode ? const Icon(Icons.light_mode) : const Icon(Icons.dark_mode)  
+            ),
+            const SizedBox(width: 10,),
             const Center(child: Text("JOHN DOE "),),
             const SizedBox(width: 5,),
             profileImage,

@@ -70,8 +70,13 @@ class _HomeState extends State<Home> {
                       const DataCell(Text("Nakuru")),
                       DataCell(ElevatedButton( onPressed: (){},child: const Text("Low"),)),
                       const DataCell(Text("20k"))
+                    ]),
+                     DataRow(cells: [
+                      const DataCell(Text("Susan Rice")),
+                      const DataCell(Text("Delhi")),
+                      DataCell(ElevatedButton( onPressed: (){},child: const Text("Medium"),)),
+                      const DataCell(Text("120k"))
                     ])
-
                   ],
 
               )),
