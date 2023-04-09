@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterdash/bloc/theme_bloc.dart';
 import 'package:flutterdash/components/componets.dart';
 import 'package:flutterdash/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,23 +26,27 @@ class _DashBoardState extends State<DashBoard> {
     const Text("Settings"),
   ];
   bool isDarkmode=true;
+  
 
   checkTheme()async{
+    final themeBloc = context.read<ThemeBloc>();
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    String theme='dark';
     if(preferences.getString("theme")=='light' || preferences.getString('theme')==null){
-      isDarkmode=false;
-      setState(() {});
+     theme='light';
     }
+    themeBloc.changeTheme(theme);
   }
+
   _changeDestination(int index)=>setState(()=>selectedIndex=index);
 
-  _chageTheme()async{
+  _chageTheme(ThemeMode theme)async{
+    final themeBloc = context.read<ThemeBloc>();
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    if(isDarkmode){
+    if(theme== ThemeMode.dark){
       preferences.setString("theme", "light");
     }else{ preferences.setString("theme", "dark");}
-    Navigator.popUntil(context, (route) => false);
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyApp()));
+   themeBloc.changeTheme(theme== ThemeMode.dark ? 'light' :'dark') ;
   }
   
   @override
@@ -59,9 +65,13 @@ class _DashBoardState extends State<DashBoard> {
         elevation: 1,
         shadowColor: Colors.grey.shade400,
         actions:  <Widget>[
-            IconButton(
-              onPressed: _chageTheme, 
-              icon: isDarkmode ? const Icon(Icons.light_mode) : const Icon(Icons.dark_mode)  
+            BlocBuilder<ThemeBloc,ThemeMode>(
+              builder: (context,theme) {
+                return IconButton(
+                  onPressed:()=>_chageTheme(theme), 
+                  icon: theme == ThemeMode.dark ? const Icon(Icons.light_mode) : const Icon(Icons.dark_mode)  
+                );
+              }
             ),
             const SizedBox(width: 10,),
             const Center(child: Text("JOHN DOE "),),

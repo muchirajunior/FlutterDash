@@ -1,8 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterdash/bloc/theme_bloc.dart';
+import 'package:flutterdash/bloc/todos_bloc.dart';
 import 'package:flutterdash/dashboard.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
+  if(Platform.isWindows || Platform.isLinux){
+    sqfliteFfiInit();
+  }
   runApp(const MyApp());
 }
 
@@ -14,35 +22,37 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isDarkmode=true;
-
-  checkTheme()async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    if(preferences.getString("theme")=='light' || preferences.getString('theme')==null){
-      isDarkmode=false;
-      setState(() {});
-    }
-  }
-
+    
   @override
   initState(){
-    checkTheme();
     super.initState();
   }
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Dash',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      themeMode: isDarkmode ? ThemeMode.dark : ThemeMode.light,
-      home: const DashBoard()
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeBloc>(create: (context)=> ThemeBloc()),
+        BlocProvider<TodosBloc>(create: (context)=>TodosBloc())
+      ],
+      
+      child: BlocBuilder<ThemeBloc,ThemeMode>(
+        builder: (context, theme) {
+          return MaterialApp(
+            title: 'Flutter Dash',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData.light(
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData.dark(
+              useMaterial3: true,
+            ),
+            themeMode: theme,
+            home: const DashBoard()
+          );
+        }
+      )
+      
     );
   }
 }
