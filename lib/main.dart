@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterdash/bloc/products_bloc.dart';
 import 'package:flutterdash/bloc/theme_bloc.dart';
 import 'package:flutterdash/bloc/todos_bloc.dart';
 import 'package:flutterdash/dashboard.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-    
+
   @override
   initState(){
     super.initState();
@@ -33,7 +34,8 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeBloc>(create: (context)=> ThemeBloc()),
-        BlocProvider<TodosBloc>(create: (context)=>TodosBloc())
+        BlocProvider<TodosBloc>(create: (context)=>TodosBloc()),
+        BlocProvider(create: (context)=> ProductsBloc())
       ],
       
       child: BlocBuilder<ThemeBloc,ThemeMode>(

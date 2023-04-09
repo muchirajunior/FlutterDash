@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/bloc/theme_bloc.dart';
 import 'package:flutterdash/components/componets.dart';
-import 'package:flutterdash/main.dart';
+import 'package:flutterdash/components/products/products_tab.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/home/home.dart';
@@ -20,7 +20,7 @@ class _DashBoardState extends State<DashBoard> {
   List<Widget> dashboardComponents=[
     const Home(),
     const Text("Sales"),
-    const Text("Products"),
+    const ProductsTab(),
     const Text("favourites"),
     const Text("Messages"),
     const Text("Settings"),

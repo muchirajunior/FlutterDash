@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/models/product.dart';
-import 'package:flutterdash/models/product.dart';
 
 class ProductsBloc extends Cubit<List<Product>>{
   ProductsBloc():super([]);
