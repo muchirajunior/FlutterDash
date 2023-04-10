@@ -26,31 +26,31 @@ class _DashBoardState extends State<DashBoard> {
     const Text("Settings"),
   ];
   bool isDarkmode=true;
+  late ThemeBloc _themeBloc;
   
 
   checkTheme()async{
-    final themeBloc = context.read<ThemeBloc>();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String theme='dark';
     if(preferences.getString("theme")=='light' || preferences.getString('theme')==null){
      theme='light';
     }
-    themeBloc.changeTheme(theme);
+    _themeBloc.changeTheme(theme);
   }
 
   _changeDestination(int index)=>setState(()=>selectedIndex=index);
 
   _chageTheme(ThemeMode theme)async{
-    final themeBloc = context.read<ThemeBloc>();
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if(theme== ThemeMode.dark){
       preferences.setString("theme", "light");
     }else{ preferences.setString("theme", "dark");}
-   themeBloc.changeTheme(theme== ThemeMode.dark ? 'light' :'dark') ;
+   _themeBloc.changeTheme(theme== ThemeMode.dark ? 'light' :'dark') ;
   }
   
   @override
   initState(){
+    _themeBloc=context.read<ThemeBloc>();
     checkTheme();
     super.initState();
   }

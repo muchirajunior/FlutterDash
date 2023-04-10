@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/bloc/products_bloc.dart';
+import 'package:flutterdash/components/products/add_product.dart';
 import 'package:flutterdash/models/product.dart';
 
 class ProductsTab extends StatefulWidget {
@@ -11,42 +12,50 @@ class ProductsTab extends StatefulWidget {
 }
 
 class _ProductsTabState extends State<ProductsTab> {
-  TextEditingController productController= TextEditingController();
+  TextEditingController searchController= TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
+      width: double.infinity,
       child: Column(
         children: [
-          Card(
-            child: TextFormField(
-              controller: productController,
-              decoration:  InputDecoration(
-                border: OutlineInputBorder( 
-                  borderRadius: BorderRadius.circular(18)
+          Row(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width*.7,
+                child: TextFormField(
+                  controller: searchController,
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder( 
+                      borderRadius: BorderRadius.circular(18)
+                    ),
+                    hintText: "Search here  ...",
+                    labelText: "Search Product",
+                  ),
                 ),
-                hintText: "Search here  ...",
-                labelText: "Search Product",
-                suffixIcon: IconButton(
-                  onPressed: ()=>context.read<ProductsBloc>().addproduct(Product.fromJson({
-                    'name':productController.text,
-                    'price':50.0,
-                    'description':"product description"
-                  })),
-                  icon:const Icon(Icons.add),
-                )
               ),
-            ),
+              const SizedBox(width: 20,),
+              const AddProduct()
+            ],
           ),
           Expanded(
             child: BlocBuilder<ProductsBloc,List<Product>>(
               builder: (context, products) => ListView(
                 children: products.map((product) =>Card(
                   child: ListTile(
+                    leading: Card(
+                      
+                      color: Theme.of(context).primaryColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(product.quantity.toString(), style: const TextStyle(color: Colors.white),),
+                      ),
+                    ),
                     title: Text(product.name.toString()),
                     subtitle: Text(product.description.toString()),
-                    trailing: Text(product.price.toString()),
+                    trailing: Text("\$ ${product.price.toString()}"),
                   ),
                 ) ).toList(),
               ),

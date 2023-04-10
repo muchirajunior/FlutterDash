@@ -19,3 +19,22 @@ Widget customButton()=>Padding(
             ),
             child:const Text("see more")),
         );
+
+Widget customTextInput(TextEditingController controller,String hint,{TextInputType inputType=TextInputType.text,int maxLines=1}){
+  return Card(
+    margin:const EdgeInsets.all(10),
+    child: TextFormField(
+      controller: controller,
+      keyboardType: inputType,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        hintText: hint,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15)
+        ),
+        labelText: hint
+      ),
+    )
+    ,
+  );
+}
