@@ -15,11 +15,13 @@ class TodosBloc extends Cubit<List<Todo>>{
   }
 
   updateTodo(Todo todo){
-    var oldTodo= state.where((todo) => todo.id==todo.id).first;
+    var oldTodo= state.where((td) => td.id==todo.id).first;
     if(oldTodo != null){
       oldTodo=todo;
+      print(oldTodo.toJson());
       emit(state);
     }
+
   }
   
 }

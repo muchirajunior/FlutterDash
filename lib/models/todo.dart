@@ -1,20 +1,20 @@
 class Todo{
   int? id;
-  String? todo;
+  String? title;
   String? description;
-  bool? isComplete;
+  bool? isCompleted;
 
   Todo.fromJson(Map json):
       id=json['id'],
-      todo=json['todo'],
+      title=json['title'],
       description=json['description'],
-      isComplete=json['isComplete'];
+      isCompleted=json['completed'];
 
   Map toJson()=>{
     "id":id,
-    "todo":todo,
+    "title":title,
     "description":description,
-    "isComplete":isComplete
+    "isComplete":isCompleted
   };
 
 }

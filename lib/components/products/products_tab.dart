@@ -16,21 +16,29 @@ class _ProductsTabState extends State<ProductsTab> {
   TextEditingController searchController= TextEditingController();
   ProductsDBHelper productsDBHelper=ProductsDBHelper();
 
-  deleteProduct(int id)async{
-      
+  loadProducts()async{
+      var products=await productsDBHelper.getAllProducts();
+      context.read<ProductsBloc>().resetState(products);
+  }
 
+  deleteProduct(int id){
       showDialog(context: context, builder: (context)=>AlertDialog(
         title:const Text("Are you sure you want to delete this product"),
         actions: [
           OutlinedButton(onPressed: ()=>Navigator.pop(context), child: const Text("cancel")),
           OutlinedButton(onPressed: ()async{
-            productsDBHelper.deleteProduct(id);
-            var products=await productsDBHelper.getAllProducts();
-            context.read<ProductsBloc>().resetState(products);
+            await productsDBHelper.deleteProduct(id);
+            await loadProducts();
             Navigator.pop(context);
           }, child:const Text("Delete")),
         ],
       ));
+  }
+
+  @override
+  void initState() {
+    loadProducts();
+    super.initState();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/bloc/theme_bloc.dart';
 import 'package:flutterdash/components/componets.dart';
 import 'package:flutterdash/components/products/products_tab.dart';
+import 'package:flutterdash/components/todos/todos_tab.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'components/home/home.dart';
@@ -21,6 +22,7 @@ class _DashBoardState extends State<DashBoard> {
     const Home(),
     const Text("Sales"),
     const ProductsTab(),
+    const Todostab(),
     const Text("favourites"),
     const Text("Messages"),
     const Text("Settings"),
@@ -101,6 +103,7 @@ class _DashBoardState extends State<DashBoard> {
                 NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text("Home"),selectedIcon: Icon(Icons.home)  ),
                 NavigationRailDestination(icon: Icon(Icons.shopping_cart_outlined), label: Text("Sales"),selectedIcon: Icon(Icons.shopping_cart) ),
                 NavigationRailDestination(icon: Icon(Icons.list_outlined), label: Text("products") ),
+                 NavigationRailDestination(icon: Icon(Icons.list_alt), label: Text("todos") ),
                 NavigationRailDestination(icon: Icon(Icons.favorite_outline), label: Text("Favourite"),selectedIcon: Icon(Icons.favorite)  ),
                 NavigationRailDestination(icon: Icon(Icons.mail_outline), label: Text("Messages"), selectedIcon: Icon(Icons.mail)),
                 NavigationRailDestination(icon: Icon(Icons.settings_outlined), label: Text("Settings"),selectedIcon: Icon(Icons.settings)  ),
