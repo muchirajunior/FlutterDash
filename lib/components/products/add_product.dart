@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/bloc/products_bloc.dart';
 import 'package:flutterdash/components/componets.dart';
+import 'package:flutterdash/database/products_database.dart';
 import 'package:flutterdash/models/product.dart';
 
 
@@ -17,6 +18,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController priceController=TextEditingController();
   TextEditingController quantityController=TextEditingController();
   TextEditingController descriptionController=TextEditingController();
+  ProductsDBHelper productsDBHelper= ProductsDBHelper();
 
 
   addItemDialog(){
@@ -42,7 +44,7 @@ class _AddProductState extends State<AddProduct> {
     ));
   }
 
-  addproduct(){
+  addproduct()async{
     var product =Product.fromJson({
       "name":nameController.text,
       "price":double.tryParse(priceController.text),
@@ -50,6 +52,9 @@ class _AddProductState extends State<AddProduct> {
       'description':descriptionController.text
     });
     context.read<ProductsBloc>().addproduct(product);
+    await productsDBHelper.insertProduct(product);
+    var data= await productsDBHelper.getAllProducts();
+    context.read<ProductsBloc>().resetState(data);
     nameController.clear();
     priceController.clear();
     descriptionController.clear();

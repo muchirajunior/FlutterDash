@@ -21,5 +21,7 @@ class ProductsBloc extends Cubit<List<Product>>{
       emit(state);
     }
   }
+
+  resetState(List<Product> products)=> emit(products);
   
 }

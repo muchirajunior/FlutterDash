@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/bloc/products_bloc.dart';
 import 'package:flutterdash/components/products/add_product.dart';
+import 'package:flutterdash/database/products_database.dart';
 import 'package:flutterdash/models/product.dart';
 
 class ProductsTab extends StatefulWidget {
@@ -13,6 +14,24 @@ class ProductsTab extends StatefulWidget {
 
 class _ProductsTabState extends State<ProductsTab> {
   TextEditingController searchController= TextEditingController();
+  ProductsDBHelper productsDBHelper=ProductsDBHelper();
+
+  deleteProduct(int id)async{
+      
+
+      showDialog(context: context, builder: (context)=>AlertDialog(
+        title:const Text("Are you sure you want to delete this product"),
+        actions: [
+          OutlinedButton(onPressed: ()=>Navigator.pop(context), child: const Text("cancel")),
+          OutlinedButton(onPressed: ()async{
+            productsDBHelper.deleteProduct(id);
+            var products=await productsDBHelper.getAllProducts();
+            context.read<ProductsBloc>().resetState(products);
+            Navigator.pop(context);
+          }, child:const Text("Delete")),
+        ],
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +46,7 @@ class _ProductsTabState extends State<ProductsTab> {
                 width: MediaQuery.of(context).size.width*.7,
                 child: TextFormField(
                   controller: searchController,
+                  onChanged: (_)=>setState(() {}),
                   decoration:  InputDecoration(
                     border: OutlineInputBorder( 
                       borderRadius: BorderRadius.circular(18)
@@ -43,7 +63,7 @@ class _ProductsTabState extends State<ProductsTab> {
           Expanded(
             child: BlocBuilder<ProductsBloc,List<Product>>(
               builder: (context, products) => ListView(
-                children: products.map((product) =>Card(
+                children: products.map((product) => product.name!.toLowerCase().contains(searchController.text.toLowerCase()) ? Card(
                   child: ListTile(
                     leading: Card(
                       
@@ -56,8 +76,10 @@ class _ProductsTabState extends State<ProductsTab> {
                     title: Text(product.name.toString()),
                     subtitle: Text(product.description.toString()),
                     trailing: Text("\$ ${product.price.toString()}"),
+                    onTap: ()=>deleteProduct(product.id!),
                   ),
-                ) ).toList(),
+                ) : const SizedBox()
+               ).toList(),
               ),
             ) 
           )
