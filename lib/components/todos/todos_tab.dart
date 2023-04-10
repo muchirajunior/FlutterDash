@@ -22,7 +22,9 @@ class _TodostabState extends State<Todostab> {
       setState(() => isLoading=true);
       var results= await get(Uri.parse("https://jsonplaceholder.typicode.com/todos"));
       List data=jsonDecode(results.body);
-      data.forEach((item) =>{ context.read<TodosBloc>().addTodo( Todo.fromJson(item) ) });
+      List<Todo> todos=[];
+      data.forEach((item) =>{ todos.add( Todo.fromJson(item) ) });
+      context.read<TodosBloc>().addTodos(todos);
     } catch (error) {
       print(error.toString());
     }finally{
@@ -65,17 +67,17 @@ class _TodostabState extends State<Todostab> {
             const Center(child: CircularProgressIndicator(),) :
             BlocBuilder<TodosBloc,List<Todo>>(builder: (context,todos)=> todos.isEmpty ?
             const Center(child: Text("No Todos here .....!"),) : ListView(
-              children: todos.map((todo) => todo.title!.contains(searchController.text.toLowerCase()) ? Card(
+              children: todos.map((todo) =>Card(
                 child: ListTile(
                   leading: CircleAvatar(child: Text(todo.id.toString())),
                   title: Text(todo.title.toString()),
                   trailing: todo.isCompleted! ? const Icon(Icons.check) : const Icon(Icons.timelapse_rounded),
-                  onTap: (){
+                  onTap:(){
                     todo.isCompleted = !todo.isCompleted!;
                     context.read<TodosBloc>().updateTodo(todo);
-                  }
+                  },
                 ),
-              ) :const SizedBox()
+              )
               ).toList(),
             ))
           )

@@ -10,18 +10,15 @@ class TodosBloc extends Cubit<List<Todo>>{
     var todo= state.where((todo) => todo.id==id).first;
     if (todo != null){
       state.remove(todo);
-      emit(state);
+      emit([...state]);
     }
   }
 
   updateTodo(Todo todo){
-    var oldTodo= state.where((td) => td.id==todo.id).first;
-    if(oldTodo != null){
-      oldTodo=todo;
-      print(oldTodo.toJson());
-      emit(state);
-    }
-
+   state.where((td) => td.id==todo.id).first.isCompleted=todo.isCompleted;
+   emit([...state]);
   }
+
+  addTodos(List<Todo> todos)=>emit(todos);
   
 }
