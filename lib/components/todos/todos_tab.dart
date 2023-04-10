@@ -67,7 +67,7 @@ class _TodostabState extends State<Todostab> {
             const Center(child: CircularProgressIndicator(),) :
             BlocBuilder<TodosBloc,List<Todo>>(builder: (context,todos)=> todos.isEmpty ?
             const Center(child: Text("No Todos here .....!"),) : ListView(
-              children: todos.map((todo) =>Card(
+              children: todos.map((todo) => todo.title!.contains(searchController.text.toLowerCase()) ? Card(
                 child: ListTile(
                   leading: CircleAvatar(child: Text(todo.id.toString())),
                   title: Text(todo.title.toString()),
@@ -77,7 +77,7 @@ class _TodostabState extends State<Todostab> {
                     context.read<TodosBloc>().updateTodo(todo);
                   },
                 ),
-              )
+              ) : SizedBox()
               ).toList(),
             ))
           )
