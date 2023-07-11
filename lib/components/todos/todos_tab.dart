@@ -77,7 +77,7 @@ class _TodostabState extends State<Todostab> {
                     context.read<TodosBloc>().updateTodo(todo);
                   },
                 ),
-              ) : SizedBox()
+              ) : const SizedBox()
               ).toList(),
             ))
           )
