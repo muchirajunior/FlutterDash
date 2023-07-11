@@ -23,7 +23,7 @@ class _TodostabState extends State<Todostab> {
       var results= await get(Uri.parse("https://jsonplaceholder.typicode.com/todos"));
       List data=jsonDecode(results.body);
       List<Todo> todos=[];
-      data.forEach((item) =>{ todos.add( Todo.fromJson(item) ) });
+      data.forEach((item) => todos.add( Todo.fromJson(item) ));
       context.read<TodosBloc>().addTodos(todos);
     } catch (error) {
       print(error.toString());

@@ -7,7 +7,7 @@ class ProductsBloc extends Cubit<List<Product>>{
   addproduct(Product product)=>emit([...state,product]);
 
   removeproduct(int id){
-    var product= state.where((product) => product.id==id).first;
+    var product= state.where((product) => product.id==id).firstOrNull;
     if (product != null){
       state.remove(product);
       emit([...state]);
@@ -15,7 +15,7 @@ class ProductsBloc extends Cubit<List<Product>>{
   }
 
   updateproduct(Product product){
-    var oldProduct= state.where((product) => product.id==product.id).first;
+    var oldProduct= state.where((product) => product.id==product.id).firstOrNull;
     if(oldProduct != null){
       oldProduct=product;
       emit([...state]);

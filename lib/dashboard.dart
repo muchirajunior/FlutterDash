@@ -102,7 +102,7 @@ class _DashBoardState extends State<DashBoard> {
               destinations: const [
                 NavigationRailDestination(icon: Icon(Icons.home_outlined), label: Text("Home"),selectedIcon: Icon(Icons.home)  ),
                 NavigationRailDestination(icon: Icon(Icons.shopping_cart_outlined), label: Text("Sales"),selectedIcon: Icon(Icons.shopping_cart) ),
-                NavigationRailDestination(icon: Icon(Icons.list_outlined), label: Text("products") ),
+                NavigationRailDestination(icon: Icon(Icons.label_important_outline), label: Text("products") ),
                  NavigationRailDestination(icon: Icon(Icons.list_alt), label: Text("todos") ),
                 NavigationRailDestination(icon: Icon(Icons.favorite_outline), label: Text("Favourite"),selectedIcon: Icon(Icons.favorite)  ),
                 NavigationRailDestination(icon: Icon(Icons.mail_outline), label: Text("Messages"), selectedIcon: Icon(Icons.mail)),
