@@ -5,6 +5,7 @@ class Product{
   String? description;
   double? price;
   int? quantity;
+  int sellQuantity=1;
 
   Product.fromJson(Map json):
     id=json['id'],

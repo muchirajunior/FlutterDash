@@ -65,7 +65,11 @@ class _ProductsTabState extends State<ProductsTab> {
                 ),
               ),
               const SizedBox(width: 20,),
-              const AddProduct()
+              const SizedBox(
+                width: 200,
+                height: 50,
+                child: AddProduct()
+              )
             ],
           ),
           Expanded(
