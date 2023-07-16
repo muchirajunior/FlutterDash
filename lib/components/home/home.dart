@@ -11,17 +11,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  bool _sortAscending = false;
+  int _sortColumnIndex = 0;
 
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        Wrap(
+       const Wrap(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           direction: Axis.horizontal,
-          children: const <Widget>[
+          children:  <Widget>[
             HomeCard(icon:  Icons.sell, title: "Sales Total", number: 394675, footer: "This Are the total sales", color: Colors.amber),
             HomeCard(icon:  Icons.group, title: "Customers total ", number: 7890, footer: "This Are the total customers", color: Colors.blue),
             HomeCard(icon:  Icons.flight, title: "Tavels Total", number: 2229, footer: "This Are the total travels", color: Colors.brown),
@@ -34,7 +35,7 @@ class _HomeState extends State<Home> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Column(children: const <Widget> [
+           const Column(children:  <Widget> [
                CustomLineChart(),
                CustomPieChart() 
             ],),
@@ -43,11 +44,19 @@ class _HomeState extends State<Home> {
               margin:const EdgeInsets.all(10),
               child: Card(
                 child: DataTable(
-                  columns: const <DataColumn>  [
-                    DataColumn(label: Text("Customer")),
-                    DataColumn(label: Text("City")),
-                    DataColumn(label: Text("Priority")),
-                    DataColumn(label: Text("Total Purchase(USD)")),
+                  sortAscending: _sortAscending,
+                  sortColumnIndex: _sortColumnIndex,
+                  columns:  <DataColumn>  [
+                    DataColumn(label:const Text("Customer",), onSort: (columnIndex, ascending) => setState(() {
+                      _sortAscending=ascending;
+                      _sortColumnIndex=columnIndex;
+                    }),),
+                    const DataColumn(label: Text("City")),
+                    const DataColumn(label: Text("Priority")),
+                    DataColumn(label: const Text("Total Purchase(USD)"),onSort: (columnIndex, ascending) => setState(() {
+                      _sortAscending=ascending;
+                      _sortColumnIndex=columnIndex;
+                    }),),
                   ],
 
                   rows:  <DataRow> [

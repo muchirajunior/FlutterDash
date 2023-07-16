@@ -15,6 +15,7 @@ class _SalesTabState extends State<SalesTab> {
   var productsDB=ProductsDBHelper();
   List<Product> products=[];
   List<Product> selectedProducts=[];
+  bool sortAsceding=true;
 
   getProducts()async{
     products=await productsDB.getAllProducts();
@@ -72,15 +73,21 @@ class _SalesTabState extends State<SalesTab> {
             height: MediaQuery.of(context).size.height*.7,
             child: SingleChildScrollView(
               child: DataTable(
-                columns: const <DataColumn>[
-                  DataColumn(label: Text("name")),
-                  DataColumn(label: Text("price")),
-                  DataColumn(label: Text("quantity")),
-                  DataColumn(label: Text("actions")),
+                sortColumnIndex: 1,
+                sortAscending: sortAsceding,
+                columns:  <DataColumn>[
+                  const DataColumn(label: Text("name")),
+                  DataColumn(label: const Text("price"), onSort: (columnIndex, ascending) => setState((){
+                    sortAsceding=ascending;
+                    selectedProducts.sort((a,b)=> ascending ? a.price!.compareTo(b.price!) : b.price!.compareTo(a.price!)  );
+                    })
+                    ),
+                  const DataColumn(label: Text("quantity")),
+                  const DataColumn(label: Text("actions")),
                 ],
                 rows: selectedProducts.map((product) => DataRow(cells: <DataCell> [
                   DataCell(Text(product.name.toString()) , showEditIcon: true),
-                  DataCell(Text(product.price.toString())),
+                  DataCell(Text(product.price.toString(), )),
                   DataCell(Text(product.sellQuantity.toString())),
                   DataCell(Row(children: [
                     FilledButton(onPressed: ()=>reduceItem(product), child: const Icon(Icons.remove)),
