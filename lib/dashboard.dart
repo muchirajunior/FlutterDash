@@ -119,11 +119,6 @@ class _DashBoardState extends State<DashBoard> {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        child: const Icon(Icons.replay_outlined),
-      ),
-
     );
   }
 }

@@ -24,7 +24,7 @@ class _SalesTabState extends State<SalesTab> {
 
   updateSearch(Product product){
     if(selectedProducts.contains(product)){
-      selectedProducts.where((element) => element.id==product.id).first.sellQuantity+=1;
+      selectedProducts.where((element) => element.id==product.id).first.quantity+=1;
       setState(() {});
     }else{
       setState(()=> selectedProducts.add(product));
@@ -34,10 +34,10 @@ class _SalesTabState extends State<SalesTab> {
   
 
   reduceItem(Product product){
-    if(product.sellQuantity == 1){
+    if(product.quantity == 1){
       selectedProducts.remove(product);
     }else{
-      product.sellQuantity-=1;
+      product.quantity-=1;
     }
     setState(() { });
   }
@@ -88,11 +88,11 @@ class _SalesTabState extends State<SalesTab> {
                 rows: selectedProducts.map((product) => DataRow(cells: <DataCell> [
                   DataCell(Text(product.name.toString()) , showEditIcon: true),
                   DataCell(Text(product.price.toString(), )),
-                  DataCell(Text(product.sellQuantity.toString())),
+                  DataCell(Text(product.quantity.toString())),
                   DataCell(Row(children: [
                     FilledButton(onPressed: ()=>reduceItem(product), child: const Icon(Icons.remove)),
                     const SizedBox(width: 5,),
-                    FilledButton(onPressed: ()=>setState(()=>product.sellQuantity+=1), child: const Icon(Icons.add))
+                    FilledButton(onPressed: ()=>setState(()=>product.quantity), child: const Icon(Icons.add))
                   ],))
                 ] )).toList(),
               ),
