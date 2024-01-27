@@ -18,7 +18,10 @@ class _ProductsTabState extends State<ProductsTab> {
 
   loadProducts()async{
       var products=await productsDBHelper.getAllProducts();
-      context.read<ProductsBloc>().resetState(products);
+      if(context.mounted){
+         context.read<ProductsBloc>().resetState(products);
+      }
+     
   }
 
   deleteProduct(int id){
@@ -29,7 +32,9 @@ class _ProductsTabState extends State<ProductsTab> {
           OutlinedButton(onPressed: ()async{
             await productsDBHelper.deleteProduct(id);
             await loadProducts();
-            Navigator.pop(context);
+            if(context.mounted) {
+              Navigator.pop(context);
+            }
           }, child:const Text("Delete")),
         ],
       ));

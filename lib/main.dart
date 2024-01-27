@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider<ThemeBloc>(create: (context)=> ThemeBloc()),
         BlocProvider<TodosBloc>(create: (context)=>TodosBloc()),
-        BlocProvider(create: (context)=> ProductsBloc())
+        BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc())
       ],
       
       child: BlocBuilder<ThemeBloc,ThemeMode>(
