@@ -47,7 +47,7 @@ class CustomSearchDelegate extends SearchDelegate{
 
   @override
   Widget buildSuggestions(BuildContext context){
-    List<Product> matchQuery=products.where((product)=>product.name.toString().toLowerCase().contains(query.toLowerCase())).take(4).toList();
+    List<Product> matchQuery=products.where((product)=>product.name.toString().toLowerCase().contains(query.toLowerCase())).take(100).toList();
     return ListView(
       children: matchQuery.map((product) => ListTile(
         title: Text(product.name.toString()),

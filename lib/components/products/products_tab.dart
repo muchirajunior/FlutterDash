@@ -91,7 +91,7 @@ class _ProductsTabState extends State<ProductsTab> {
                       ),
                     ),
                     title: Text(product.name.toString()),
-                    subtitle: Text(product.description.toString()),
+                    subtitle: Text(product.code.toString()),
                     trailing: Text("\$ ${product.price.toString()}"),
                     onTap: ()=>deleteProduct(product.id!),
                   ),

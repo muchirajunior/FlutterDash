@@ -8,7 +8,7 @@ class ProductsDBHelper {
     var databaseFactory = databaseFactoryFfi;
     var db = await databaseFactory.openDatabase("${Utils.databasePath}products.db");
     try {
-      await db.execute(" CREATE TABLE products (id INTEGER PRIMARY KEY autoincrement,name TEXT,description TEXT,price REAL,quantity INTEGER)");
+      await db.execute(" CREATE TABLE products (id INTEGER PRIMARY KEY autoincrement,name TEXT,code TEXT,price REAL,quantity INTEGER)");
     } catch(error){ ()=>{} ;}
     return db;
   }
