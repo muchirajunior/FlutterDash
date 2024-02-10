@@ -1,7 +1,9 @@
 class SalesDraft{
-  int? id;
-  String? title;
+  late int id;
+  late String title;
   List<SalesDraftItem> items =[];
+
+  SalesDraft({required this.id,required this.title});
 
   SalesDraft.fromJson(Map json){
     id = json['id'];
@@ -26,17 +28,17 @@ class SalesDraft{
 }
 
 class SalesDraftItem{
-  String? name;
-  String? code;
-  double? price;
-  int? quantity;
+  String name;
+  String code;
+  double price;
+  int quantity;
 
-  SalesDraftItem.fromJson(Map json){
-    name = json['name'];
-    code = json['code'];
-    price = json['price'];
+  SalesDraftItem.fromJson(Map json):
+    name = json['name'],
+    code = json['code'],
+    price = json['price'],
     quantity = json['quantity'];    
-  }
+  
 
   Map toJson()=>{
     'name': name,

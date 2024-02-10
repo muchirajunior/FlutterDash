@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterdash/bloc/products_bloc.dart';
+import 'package:flutterdash/bloc/sale_draft_bloc.dart';
 import 'package:flutterdash/bloc/theme_bloc.dart';
 import 'package:flutterdash/bloc/todos_bloc.dart';
 import 'package:flutterdash/dashboard.dart';
@@ -35,7 +36,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider<ThemeBloc>(create: (context)=> ThemeBloc()),
         BlocProvider<TodosBloc>(create: (context)=>TodosBloc()),
-        BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc())
+        BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc()),
+        BlocProvider(create: (context)=>SalesDraftBloc())
       ],
       
       child: BlocBuilder<ThemeBloc,ThemeMode>(

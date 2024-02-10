@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterdash/components/sales/custom_search.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterdash/bloc/sale_draft_bloc.dart';
+import 'package:flutterdash/components/sales/add_draft_dialog.dart';
 import 'package:flutterdash/database/products_database.dart';
 import 'package:flutterdash/models/product.dart';
+import 'package:flutterdash/models/sales_daft.dart';
 
 class SalesTab extends StatefulWidget {
   const SalesTab({super.key});
@@ -50,59 +53,26 @@ class _SalesTabState extends State<SalesTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          //search 
-          TextFormField(
-            controller: searchController,
-            keyboardType: TextInputType.text,
-            onTap: () => showSearch(context: context,useRootNavigator: true, delegate: CustomSearchDelegate(products: products, updateSearch: updateSearch,)),
-            decoration: InputDecoration(
-              labelText: "search",
-              hintText: "enter product name",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10)
-              )
+      body: BlocBuilder<SalesDraftBloc, List<SalesDraft>>(
+        builder: (context,drafts)=>Column(
+          children: [
+            DropdownMenu(
+              label: const Text('Sales Drafts'),
+              expandedInsets: const EdgeInsets.all(10),
+              menuHeight: 200,
+              dropdownMenuEntries: drafts.map((draft) => DropdownMenuEntry(
+                value: draft, 
+                label: draft.title
+              )).toList(),
             ),
-          ),
-      
-          const SizedBox(height: 20,),
-      
-          Card(
-            child: SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height*.7,
-              child: SingleChildScrollView(
-                child: DataTable(
-                  sortColumnIndex: 1,
-                  sortAscending: sortAsceding,
-                  columns:  <DataColumn>[
-                    const DataColumn(label: Text("name")),
-                    DataColumn(label: const Text("price"), onSort: (columnIndex, ascending) => setState((){
-                      sortAsceding=ascending;
-                      selectedProducts.sort((a,b)=> ascending ? a.price!.compareTo(b.price!) : b.price!.compareTo(a.price!)  );
-                      })
-                      ),
-                    const DataColumn(label: Text("quantity")),
-                    const DataColumn(label: Text("actions")),
-                  ],
-                  rows: selectedProducts.map((product) => DataRow(cells: <DataCell> [
-                    DataCell(Text(product.name.toString()) , showEditIcon: true),
-                    DataCell(Text(product.price.toString(), )),
-                    DataCell(Text(product.quantity.toString())),
-                    DataCell(Row(children: [
-                      FilledButton(onPressed: ()=>reduceItem(product), child: const Icon(Icons.remove)),
-                      const SizedBox(width: 5,),
-                      FilledButton(onPressed: ()=>setState(()=>product.quantity), child: const Icon(Icons.add))
-                    ],))
-                  ] )).toList(),
-                ),
-              ),
-            )
-            )
-          
-      
-        ],
+
+          ],
+        ),
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()=>showDialog(context: context, builder: (context)=>const AddDraftDialog()),
+        child: const Icon(Icons.add),
       ),
     );
 

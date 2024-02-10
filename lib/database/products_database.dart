@@ -1,5 +1,6 @@
 import 'package:flutterdash/models/product.dart';
 import 'package:flutterdash/utils.dart';
+// ignore: depend_on_referenced_packages
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -23,7 +24,9 @@ class ProductsDBHelper {
     List<Map> data= await database.query("products");
     List<Product> products=[];
     if(data.isNotEmpty){
-      data.forEach((element) { products.add(Product.fromJson(element)); });
+      for (var element in data) {
+        products.add(Product.fromJson(element));
+      }
     }
     return products;
   }
