@@ -79,7 +79,7 @@ class _ProductsTabState extends State<ProductsTab> {
           Expanded(
             child: BlocBuilder<ProductsBloc,List<Product>>(
               builder: (context, products) => ListView(
-                children:  products.map((product) => product.name!.toLowerCase().contains(searchController.text.toLowerCase()) ? 
+                children:  products.map((product) => product.name.toLowerCase().contains(searchController.text.toLowerCase()) ? 
                 Card(
                   child: ListTile(
                     leading: Card(

@@ -1,8 +1,8 @@
 class Product{
   int? id;
-  String? name;
-  String? code;
-  double? price;
+  String name;
+  String code;
+  double price;
   int quantity;
 
   Product.fromJson(Map json):
