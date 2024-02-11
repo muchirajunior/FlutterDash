@@ -37,6 +37,19 @@ class _SalesTabState extends State<SalesTab> {
     }
   }
 
+  infoLabel(String title,var value)=>Padding(
+    padding: const EdgeInsets.all(5),
+    child: Text.rich(TextSpan(
+      text: "$title:  ",
+      children: [
+        TextSpan(
+          text: value.toString(),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)
+        )
+      ]
+    )),
+  );
+
   @override
   void initState() {
     loadDrafts();
@@ -106,6 +119,7 @@ class _SalesTabState extends State<SalesTab> {
                                 item.quantity++;
                                 var draft = drafts.firstWhere((element) => element.id ==selectedId);
                                 draft.items= draft.items.map((x) => x.code == item.code ? item : x).toList();
+                                draft.total +=item.price;
                                 await SalesDraftsHandler.updateDraft(draft: draft);
                                 await loadDrafts();
                               }, child: const Icon(Icons.add)),
@@ -116,7 +130,8 @@ class _SalesTabState extends State<SalesTab> {
                                   draft.items= draft.items.map((x) => x.code == item.code ? item : x).toList();
                                 }else{
                                   draft.items.removeWhere((element) => element.code==item.code);
-                                }                              
+                                }
+                                draft.total -=item.price;                          
                                 await SalesDraftsHandler.updateDraft(draft: draft);
                                 await loadDrafts();
                               }, child: const Icon(Icons.remove)),
@@ -139,6 +154,7 @@ class _SalesTabState extends State<SalesTab> {
                                       return;
                                     }
                                     draft.items.add( SalesDraftItem.fromJson(value.toJson()) );
+                                    draft.total += value.price;
                                     await SalesDraftsHandler.updateDraft(draft: draft);
                                     await loadDrafts();
                                     searchController.clear();
@@ -154,7 +170,20 @@ class _SalesTabState extends State<SalesTab> {
                               )
                             
                           ),
-                          const DataCell(SizedBox() ),
+                          DataCell(DropdownMenu(
+                            expandedInsets: const EdgeInsets.all(1),
+                            label: const  Text('payment type'),
+                            onSelected: (value) async{
+                                var draft = drafts.firstWhere((element) => element.id==selectedId);
+                                draft.payment.type = value ?? '';
+                                await SalesDraftsHandler.updateDraft(draft: draft);
+                                await loadDrafts();
+                            },
+                            dropdownMenuEntries: const <DropdownMenuEntry>[
+                              DropdownMenuEntry(value: "CASH", label: "CASH"),
+                              DropdownMenuEntry(value: "MPESA", label: "MPESA"),
+                            ],
+                          )),
                           const DataCell(Text('')),
                           const DataCell(Text('')),
                           const DataCell(Text(''))
@@ -166,8 +195,27 @@ class _SalesTabState extends State<SalesTab> {
               )
             ),
 
-
-          
+            selectedId == null ? const SizedBox() : Card(
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                width: double.infinity,
+                child: Wrap(
+                  children: [
+                    infoLabel("Total", drafts.firstWhere((element) => element.id ==  selectedId).total),
+                    infoLabel("Tax", drafts.firstWhere((element) => element.id ==  selectedId).tax),
+                    infoLabel("PaymentType", drafts.firstWhere((element) => element.id ==  selectedId).payment.type),
+                    infoLabel("Payment Code", drafts.firstWhere((element) => element.id ==  selectedId).payment.code),
+                    infoLabel("Payment Account", drafts.firstWhere((element) => element.id ==  selectedId).payment.account),
+                    infoLabel("Payment Total", drafts.firstWhere((element) => element.id ==  selectedId).payment.amount),
+                    const SizedBox(width: 40,),
+                    FilledButton(onPressed: (){}, child: const Text('Print')),
+                    const SizedBox(width: 20,),
+                    FilledButton(onPressed: (){}, child: const Text('Submit'))
+                  ],
+                ),
+              ),
+            )       
 
           ],
         ),
