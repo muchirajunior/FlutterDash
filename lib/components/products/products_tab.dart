@@ -55,8 +55,7 @@ class _ProductsTabState extends State<ProductsTab> {
         children: [
           Row(
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width*.7,
+              Expanded(
                 child: TextFormField(
                   controller: searchController,
                   onChanged: (_)=>setState(() {}),
@@ -71,7 +70,7 @@ class _ProductsTabState extends State<ProductsTab> {
               ),
               const SizedBox(width: 20,),
               const SizedBox(
-                width: 200,
+                width:140,
                 height: 50,
                 child: AddProduct()
               )
@@ -80,10 +79,10 @@ class _ProductsTabState extends State<ProductsTab> {
           Expanded(
             child: BlocBuilder<ProductsBloc,List<Product>>(
               builder: (context, products) => ListView(
-                children: products.map((product) => product.name!.toLowerCase().contains(searchController.text.toLowerCase()) ? Card(
+                children:  products.map((product) => product.name!.toLowerCase().contains(searchController.text.toLowerCase()) ? 
+                Card(
                   child: ListTile(
                     leading: Card(
-                      
                       color: Theme.of(context).primaryColor,
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -96,7 +95,7 @@ class _ProductsTabState extends State<ProductsTab> {
                     onTap: ()=>deleteProduct(product.id!),
                   ),
                 ) : const SizedBox()
-               ).toList(),
+               ).toList()
               ),
             ) 
           )

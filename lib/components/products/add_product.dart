@@ -17,7 +17,7 @@ class _AddProductState extends State<AddProduct> {
   TextEditingController nameController=TextEditingController();
   TextEditingController priceController=TextEditingController();
   TextEditingController quantityController=TextEditingController();
-  TextEditingController descriptionController=TextEditingController();
+  TextEditingController codeController=TextEditingController();
   ProductsDBHelper productsDBHelper= ProductsDBHelper();
 
 
@@ -31,9 +31,10 @@ class _AddProductState extends State<AddProduct> {
         child: Column(
           children: [
             customTextInput(nameController, "product name"),
+            customTextInput(codeController, "Code",),
             customTextInput(priceController, "price",inputType: TextInputType.number),
             customTextInput(quantityController, "Quantity",inputType: TextInputType.number),
-            customTextInput(descriptionController, "Description",maxLines: 3),
+            
           ],
         ),
       ),
@@ -49,23 +50,35 @@ class _AddProductState extends State<AddProduct> {
       "name":nameController.text,
       "price":double.tryParse(priceController.text),
       "quantity":int.tryParse(quantityController.text),
-      'description':descriptionController.text
+      'code':codeController.text
     });
     context.read<ProductsBloc>().addproduct(product);
     await productsDBHelper.insertProduct(product);
     var data= await productsDBHelper.getAllProducts();
-    context.read<ProductsBloc>().resetState(data);
-    nameController.clear();
-    priceController.clear();
-    descriptionController.clear();
-    quantityController.clear();
-    Navigator.pop(context);
+    if(context.mounted){
+      context.read<ProductsBloc>().resetState(data);
+      nameController.clear();
+      priceController.clear();
+      codeController.clear();
+      quantityController.clear();
+      Navigator.pop(context);
+    }
+    
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    priceController.dispose();
+    codeController.dispose();
+    quantityController.dispose();
+    super.dispose();
   }
 
   @override

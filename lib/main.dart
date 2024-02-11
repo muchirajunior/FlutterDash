@@ -52,7 +52,8 @@ class _MyAppState extends State<MyApp> {
               useMaterial3: true,
             ),
             themeMode: theme,
-            home: const DashBoard()
+            home: const DashBoard(),
+            routes: {},
           );
         }
       )

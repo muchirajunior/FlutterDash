@@ -20,7 +20,7 @@ class SalesDraft{
   List<SalesDraftItem> _getItems(List json){
     List<SalesDraftItem> itms =[];
     for (var item in json) {
-      items.add(SalesDraftItem.fromJson(item));
+      itms.add(SalesDraftItem.fromJson(item));
     }
     return itms;
   }

@@ -34,5 +34,37 @@ class SalesDraftsHandler{
     return false;
   }
 
-  
+  static Future<bool> updateDraft({required SalesDraft draft})async{
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      List<SalesDraft> drafts=await getDrafts();
+      drafts = drafts.map((saleDraft) => saleDraft.id == draft.id ? draft : saleDraft ).toList();
+      var data = drafts.map((d) => d.toJson()).toList();
+      var newDrafts = jsonEncode(data);
+      preferences.setString('drafts', newDrafts);
+      return true;
+    } catch (error) {
+      log('error updating draft', error: error);
+    }
+
+    return false;
+  }
+
+  static Future<bool> deleteDraft({required SalesDraft draft})async{
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      List<SalesDraft> drafts=await getDrafts();
+      drafts.removeWhere((d)=>d.id == draft.id);
+      var data = drafts.map((d) => d.toJson()).toList();
+      var newDrafts = jsonEncode(data);
+      preferences.setString('drafts', newDrafts);
+      return true;
+    } catch (error) {
+      log('error deleting draft', error: error);
+    }
+
+    return false;
+  }
+
+
 }
