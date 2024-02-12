@@ -139,36 +139,38 @@ class _SalesTabState extends State<SalesTab> {
                           ))
                         ]
                       )).toList()+[
-                        DataRow(cells: [
-                          DataCell(DropdownMenu(
-                                enableFilter: true,
-                                expandedInsets: const EdgeInsets.all(2),
-                                controller: searchController,
-                                onSelected: (value) async{
-                                  if(value != null){
-                                    var draft = drafts.firstWhere((element) => element.id==selectedId);
-                                    value.quantity = 1;
-                                    if(draft.items.where((element) => element.code== value.code).toList().isNotEmpty){
-                                      showSnackbar('item already exists');
-                                      searchController.clear();
-                                      return;
-                                    }
-                                    draft.items.add( SalesDraftItem.fromJson(value.toJson()) );
-                                    draft.total += value.price;
-                                    await SalesDraftsHandler.updateDraft(draft: draft);
-                                    await loadDrafts();
+                        DataRow(
+                          selected: true,
+                          cells: [
+                          DataCell(
+                            DropdownMenu(
+                              enableFilter: true,
+                              expandedInsets: const EdgeInsets.all(2),
+                              controller: searchController,
+                              onSelected: (value) async{
+                                if(value != null){
+                                  var draft = drafts.firstWhere((element) => element.id==selectedId);
+                                  value.quantity = 1;
+                                  if(draft.items.where((element) => element.code== value.code).toList().isNotEmpty){
+                                    showSnackbar('item already exists');
                                     searchController.clear();
-                                    // setState((){});
+                                    return;
                                   }
-                                  
-                                },
-                                label: const Text('item search'),
-                                dropdownMenuEntries: products.map((product) => DropdownMenuEntry(
-                                  value: product, 
-                                  label: product.code.toString()
-                                  )).toList(),
-                              )
-                            
+                                  draft.items.add( SalesDraftItem.fromJson(value.toJson()) );
+                                  draft.total += value.price;
+                                  await SalesDraftsHandler.updateDraft(draft: draft);
+                                  await loadDrafts();
+                                  searchController.clear();
+                                  // setState((){});
+                                }
+                                
+                              },
+                              label: const Text('item search'),
+                              dropdownMenuEntries: products.map((product) => DropdownMenuEntry(
+                                value: product, 
+                                label: product.code.toString()
+                                )).toList(),
+                            ),
                           ),
                           DataCell(DropdownMenu(
                             expandedInsets: const EdgeInsets.all(1),
